@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+html,
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #25c1e8, #70d9f3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.main-div {
+    background: white;
+    width: 100%;
+    max-width: 1080px;
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.lang {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.lang select {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    transition: border 0.3s ease;
+    min-width: 120px;
+}
+
+.lang select:focus {
+    border-color: #27c3eb;
+    outline: none;
+}
+
+#swap {
+    font-size: 1.5rem;
+    padding: 0.3rem 1rem;
+    border-radius: 50%;
+    border: none;
+    background: #27c3eb;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#swap:hover {
+    background: #1aaac7;
+}
+
+#swap:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+.text {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.text textarea {
+    flex: 1;
+    min-width: 45%;
+    max-width: 100%;
+    height: 12rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #ddd;
+    background-color: #fdfdfd;
+    resize: none;
+    transition: border 0.3s ease, box-shadow 0.2s ease;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.03);
+}
+
+.text textarea:focus {
+    border-color: #27c3eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(39, 195, 235, 0.2);
+}
+
+.translate-btn {
+    padding: 0.9rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(to right, #27c3eb, #1aaac7);
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    align-self: center;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(39, 195, 235, 0.4);
+}
+
+.translate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(39, 195, 235, 0.5);
+}
+
+@media (max-width: 768px) {
+
+    .text {
+        flex-direction: column;
+    }
+
+    .text textarea {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .lang {
+        flex-direction: column;
+    }
+
+    .lang select {
+        width: 80%;
+        max-width: 300px;
+    }
+}

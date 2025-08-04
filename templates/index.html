@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logo.png') }}" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="main-div">
+        <form id="form">
+            <div class="lang">
+                <select name="src" id="src">
+                    <option value="auto">Detect</option>
+                    {% for lc, l in languages.items() %}
+                    <option value="{{lc}}" {% if lc==default_src %} selected{%endif%}>{{l | capitalize}}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="button" value="⇄" id="swap" onclick="swapLang()">
+
+                <select name="dest" id="dest">
+                    {% for lc, l in languages.items() %}
+                    <option value="{{lc}}" {% if lc==default_dest %} selected{%endif%}>{{l | capitalize}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="text">
+                <textarea name="inputText" id="inputText" placeholder="Enter Text" required></textarea>
+                <textarea name="outputText" id="outputText" placeholder="Translated Text" readonly></textarea>
+            </div>
+
+            <input type="button" value="Translate" class="translate-btn" onclick="translate_func()">
+        </form>
+    </div>
+
+    <script>
+        const src = document.getElementById("src");
+        const dest = document.getElementById("dest");
+        const swapBtn = document.getElementById("swap");
+
+        swapBtn.disabled = src.value === "auto";
+
+        src.addEventListener("change", function () {
+            swapBtn.disabled = this.value === "auto";
+        });
+
+        function swapLang() {
+            if (src.value !== "auto") {
+                const temp = src.value;
+                src.value = dest.value;
+                dest.value = temp;
+            }
+        }
+
+        async function translate_func() {
+            const srcValue = src.value;
+            const destValue = dest.value;
+            const inputText = document.getElementById("inputText").value;
+
+            const resp = await fetch("/translate", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ src: srcValue, dest: destValue, inputText })
+            });
+
+            const data = await resp.json();
+
+            if (data.pronunciation != "null" && destValue != 'en') {
+                document.getElementById("outputText").value = `${data.text}\n${data.pronunciation}`;
+            }
+            else {
+                document.getElementById("outputText").value = `${data.text}`;
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
